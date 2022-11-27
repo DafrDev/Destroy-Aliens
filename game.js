@@ -140,35 +140,35 @@ function createRandomStars() {
 /// Keyboard AND Mouse///
 ////////////////////////
 
-function getKeysDown(e, dt) {
-  switch (e.key) {
-    case "d":
+function getKeysDown(e) {
+  switch (e.code) {
+    case "KeyD":
       ship.velocity.x = 1;
       break;
-    case "q":
+    case "KeyA":
       ship.velocity.x = -1;
       break;
-    case "z":
+    case "KeyW":
       ship.velocity.y = -1;
       break;
-    case "s":
+    case "KeyS":
       ship.velocity.y = 1;
       break;
   }
 }
 
 function getKeysUp(e) {
-  switch (e.key) {
-    case "d":
+  switch (e.code) {
+    case "KeyD":
       ship.velocity.x = 0;
       break;
-    case "q":
+    case "KeyA":
       ship.velocity.x = 0;
       break;
-    case "z":
+    case "KeyW":
       ship.velocity.y = 0;
       break;
-    case "s":
+    case "KeyS":
       ship.velocity.y = 0;
       break;
   }
