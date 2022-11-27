@@ -31,7 +31,8 @@ function update(dt) {
   // BACKGROUND MOVEMENT \\
   if (backgroundMovement) {
     for (let i = 0; i < arrOfStars.length; i++) {
-      arrOfStars[i].pos.x -= dt * 100;
+      arrOfStars[i].pos.x -= dt * 50;
+
       if (arrOfStars[i].radius >= 0.7) {
         arrOfStars[i].pos.x -= dt * 50;
       }
