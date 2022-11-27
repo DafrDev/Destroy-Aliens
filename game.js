@@ -7,23 +7,38 @@ const ship = new SpaceShip(
 
 const arrOfStars = [];
 let counterUniverseSize = 0;
-
 let randomStars = Math.floor(Math.random() * (5000 - 1600) + 1600);
 let randomStarsPosX;
 let randomStarsPosY;
 let randomStarsRadius;
 let backgroundMovement = true;
+let bigStar = false;
 const universeSizeX = 8000;
+
+/////////////////
+///// LOAD /////
+///////////////
 
 function load() {
   createRandomStars();
 }
+
+///////////////////
+///// UPDATE /////
+/////////////////
 
 function update(dt) {
   // BACKGROUND MOVEMENT \\
   if (backgroundMovement) {
     for (let i = 0; i < arrOfStars.length; i++) {
       arrOfStars[i].pos.x -= dt * 100;
+      if (arrOfStars[i].radius >= 0.7) {
+        arrOfStars[i].pos.x -= dt * 50;
+      }
+
+      if (arrOfStars[i].radius >= 0.9) {
+        arrOfStars[i].pos.x -= dt * 50;
+      }
     }
     counterUniverseSize += dt * 100;
   }
@@ -35,6 +50,10 @@ function update(dt) {
   }
 }
 
+/////////////////
+///// DRAW /////
+///////////////
+
 function draw() {
   // DRAW STARS RANDOMLY \\
   for (let i = 0; i < arrOfStars.length; i++) {
@@ -44,6 +63,10 @@ function draw() {
   // DRAW SHIP \\
   ship.draw();
 }
+
+////////////////////////////////
+///// OBJECT CONSTRUCTORS /////
+//////////////////////////////
 
 function SpaceShip(name, size, position, weapons) {
   this.name = name;
@@ -69,6 +92,10 @@ function Stars(position, radius, velocity, color) {
     ctx.fill();
   };
 }
+
+//////////////////////
+///// FUNCTIONS /////
+////////////////////
 
 function createRandomStars() {
   for (let nbStars = 0; nbStars < randomStars; nbStars++) {
