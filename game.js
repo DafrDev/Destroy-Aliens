@@ -45,10 +45,14 @@ function update(dt) {
   }
 
   if (counterUniverseSize >= universeSizeX - cnvWidth) {
-    for (let i = 0; i < arrOfStars.length; i++) {
-      backgroundMovement = false;
-    }
+    backgroundMovement = false;
   }
+
+  addEventListener("keydown", e => getKeysDown(e, dt));
+  addEventListener("keyup", e => getKeysUp(e, dt));
+
+  ship.pos.x += ship.velocity.x;
+  ship.pos.y += ship.velocity.y;
 }
 
 /////////////////
@@ -74,6 +78,10 @@ function SpaceShip(name, size, position, weapons) {
   this.size = size;
   this.pos = position;
   this.weapons = weapons;
+  this.velocity = {
+    x: 0,
+    y: 0,
+  };
 
   this.draw = function () {
     ctx.fillStyle = "red";
@@ -110,5 +118,43 @@ function createRandomStars() {
       null,
       "white"
     );
+  }
+}
+
+//////////////////////////
+/// Keyboard AND Mouse///
+////////////////////////
+
+function getKeysDown(e, dt) {
+  switch (e.key) {
+    case "d":
+      ship.velocity.x = 1;
+      break;
+    case "q":
+      ship.velocity.x = -1;
+      break;
+    case "z":
+      ship.velocity.y = -1;
+      break;
+    case "s":
+      ship.velocity.y = 1;
+      break;
+  }
+}
+
+function getKeysUp(e) {
+  switch (e.key) {
+    case "d":
+      ship.velocity.x = 0;
+      break;
+    case "q":
+      ship.velocity.x = 0;
+      break;
+    case "z":
+      ship.velocity.y = 0;
+      break;
+    case "s":
+      ship.velocity.y = 0;
+      break;
   }
 }
