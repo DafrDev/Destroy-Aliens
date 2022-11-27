@@ -1,7 +1,7 @@
 const ship = new SpaceShip(
   "ship1",
-  { x: 30, y: 30 },
   { x: 20, y: cnvHeight / 2 - 15 },
+  { w: 30, h: 30 },
   "normal"
 );
 
@@ -48,11 +48,26 @@ function update(dt) {
     backgroundMovement = false;
   }
 
+  //// KEYBOARD / MOUSE DETECTION /////
   addEventListener("keydown", e => getKeysDown(e, dt));
   addEventListener("keyup", e => getKeysUp(e, dt));
 
+  //// SHIP MOVEMENT //////
   ship.pos.x += ship.velocity.x;
   ship.pos.y += ship.velocity.y;
+
+  //// COLLISION ////
+  if (ship.pos.x + ship.size.w >= cnvWidth) {
+    ship.pos.x = cnvWidth - ship.size.w;
+  } else if (ship.pos.x <= 0) {
+    ship.pos.x = 0;
+  }
+
+  if (ship.pos.y + ship.size.h >= cnvHeight) {
+    ship.pos.y = cnvHeight - ship.size.h;
+  } else if (ship.pos.y <= 0) {
+    ship.pos.y = 0;
+  }
 }
 
 /////////////////
@@ -73,7 +88,7 @@ function draw() {
 ///// OBJECT CONSTRUCTORS /////
 //////////////////////////////
 
-function SpaceShip(name, size, position, weapons) {
+function SpaceShip(name, position, size, weapons) {
   this.name = name;
   this.size = size;
   this.pos = position;
@@ -85,7 +100,7 @@ function SpaceShip(name, size, position, weapons) {
 
   this.draw = function () {
     ctx.fillStyle = "red";
-    ctx.fillRect(this.pos.x, this.pos.y, size.x, size.y);
+    ctx.fillRect(this.pos.x, this.pos.y, this.size.w, this.size.h);
   };
 }
 
